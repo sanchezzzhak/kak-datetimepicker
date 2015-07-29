@@ -15,17 +15,19 @@ class DateTimePicker extends \yii\widgets\InputWidget
      */
     public $options = [];
 
-
-
     public function init()
     {
+        parent::init();
         $this->initOptions();
+        DateTimePickerAsset::register($this->getView());
     }
 
     public function run()
     {
-        echo Html::endTag('div');
-        echo Html::endTag('div');
+        // render input
+        echo $this->hasModel()
+            ? Html::activeTextInput($this->model, $this->attribute, $this->options)
+            : Html::textInput($this->name, $this->value,$this->options);
     }
 
 
