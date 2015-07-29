@@ -15,6 +15,9 @@ class DateTimePicker extends \yii\widgets\InputWidget
      */
     public $options = [];
 
+    public $showInputIcon  = true;
+    public $inputIconClass = 'glyphicon glyphicon-calendar';
+
     public function init()
     {
         parent::init();
@@ -25,9 +28,14 @@ class DateTimePicker extends \yii\widgets\InputWidget
     public function run()
     {
         // render input
+        echo Html::beginTag('div',['class'=>'input-group date']);
         echo $this->hasModel()
             ? Html::activeTextInput($this->model, $this->attribute, $this->options)
             : Html::textInput($this->name, $this->value,$this->options);
+
+        echo $this->showInputIcon ? Html::tag('span','<span class="'.$this->inputIconClass.'"></span> ',['class' => 'input-group-addon']) : '';
+
+        echo Html::endTag('div');
     }
 
 
@@ -36,6 +44,7 @@ class DateTimePicker extends \yii\widgets\InputWidget
         if (!isset($this->options['id'])) {
             $this->options['id'] = $this->getId();
         }
+        Html::addCssClass($this->options,'datetimepicker form-control');
     }
 
 }
