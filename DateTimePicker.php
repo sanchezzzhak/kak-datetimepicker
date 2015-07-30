@@ -14,6 +14,8 @@ class DateTimePicker extends \yii\widgets\InputWidget
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
     public $options = [];
+    /** @var array */
+    public $clientOptions = [];
 
     public $showInputIcon  = true;
     public $inputIconClass = 'glyphicon glyphicon-calendar';
@@ -22,28 +24,32 @@ class DateTimePicker extends \yii\widgets\InputWidget
     {
         parent::init();
         $this->initOptions();
+        MomentAsset::register($this->getView());
         DateTimePickerAsset::register($this->getView());
+
     }
 
     public function run()
     {
+       $id = $this->getId();
         // render input
-        echo Html::beginTag('div',['class'=>'input-group date']);
+        echo Html::beginTag('div',['class'=>'input-group date', 'id' => $id]);
+
         echo $this->hasModel()
             ? Html::activeTextInput($this->model, $this->attribute, $this->options)
             : Html::textInput($this->name, $this->value,$this->options);
 
         echo $this->showInputIcon ? Html::tag('span','<span class="'.$this->inputIconClass.'"></span> ',['class' => 'input-group-addon']) : '';
-
         echo Html::endTag('div');
+
+        $clientOptions = empty($this->clientOptions) ? '{}'  : Json::encode($this->clientOptions);
+
+        $this->getView()->registerJs("$('#{$id}').datetimepicker({$clientOptions})");
     }
 
 
     private function initOptions()
     {
-        if (!isset($this->options['id'])) {
-            $this->options['id'] = $this->getId();
-        }
         Html::addCssClass($this->options,'datetimepicker form-control');
     }
 
