@@ -21,4 +21,19 @@ Usage
 -----
 ```php
     use kak\widgets\datetimepicker\DateTimePicker;
+?>
+...
+<?=$form->field($model,'dateIn')->widget(DateTimePicker::className(),[
+     'locale' => 'ru',
+     'showInputIcon' => false
+])?>
+```
+Or
+```php
+ <?=DateTimePicker::widget([
+    'name' => 'dateIn',
+    'clientOptions' => [
+        'locale' => 'ru'
+    ]
+]);?>
 ```
