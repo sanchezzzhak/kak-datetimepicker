@@ -35,9 +35,17 @@ class DateTimePicker extends \yii\widgets\InputWidget
         // render input
         echo Html::beginTag('div',['class'=>'input-group date', 'id' => $id]);
 
-        echo $this->hasModel()
-            ? Html::activeTextInput($this->model, $this->attribute, $this->options)
-            : Html::textInput($this->name, $this->value,$this->options);
+        $inline = ArrayHelper::getValue($this->clientOptions,'inline',false);
+
+        if(!$inline)
+            echo $this->hasModel()
+                ? Html::activeTextInput($this->model, $this->attribute, $this->options)
+                : Html::textInput($this->name, $this->value,$this->options);
+
+        if($inline)
+            echo $this->hasModel()
+                ? Html::activeHiddenInput($this->model, $this->attribute, $this->options)
+                : Html::hiddenInput($this->name, $this->value,$this->options);
 
         echo $this->showInputIcon ? Html::tag('span','<span class="'.$this->inputIconClass.'"></span> ',['class' => 'input-group-addon']) : '';
         echo Html::endTag('div');
