@@ -13,7 +13,7 @@
     ],
 	"require": {
 		"php":">=5.4.0",
-        "bower-asset/eonasdan-bootstrap-datetimepicker": "4.15.35"
+        "bower-asset/eonasdan-bootstrap-datetimepicker": "4.14.30"
 	},
     "extra": {
         "asset-installer-paths": {
