@@ -36,14 +36,19 @@ class DateTimePicker extends \yii\widgets\InputWidget
         echo Html::beginTag('div',['class'=>'input-group date', 'id' => $id]);
 
         $inline = ArrayHelper::getValue($this->clientOptions,'inline',false);
+        $isModel = $this->hasModel();
+        
+        if(!$isModel && $this->value === null ){
+            $this->value = \Yii::$app->request->get($this->name);
+        }
 
         if(!$inline)
-            echo $this->hasModel()
+            echo $isModel
                 ? Html::activeTextInput($this->model, $this->attribute, $this->options)
                 : Html::textInput($this->name, $this->value,$this->options);
 
         if($inline)
-            echo $this->hasModel()
+            echo $isModel
                 ? Html::activeHiddenInput($this->model, $this->attribute, $this->options)
                 : Html::hiddenInput($this->name, $this->value,$this->options);
 
