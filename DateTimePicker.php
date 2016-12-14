@@ -51,8 +51,9 @@ class DateTimePicker extends \yii\widgets\InputWidget
         echo Html::endTag('div');
 
         $clientOptions = empty($this->clientOptions) ? '{}'  : Json::encode($this->clientOptions);
+        $jsCode ="$('#{$id}').datetimepicker({$clientOptions}).data('DateTimePicker').show().hide()";
+        $this->getView()->registerJs($jsCode);
 
-        $this->getView()->registerJs("$('#{$id}').datetimepicker({$clientOptions})");
     }
 
 
