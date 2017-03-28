@@ -19,6 +19,9 @@ class DateTimePicker extends \yii\widgets\InputWidget
 
     public $showInputIcon  = true;
     public $inputIconClass = 'glyphicon glyphicon-calendar';
+    public $inputGroupOptions = [
+        'class' => 'date'
+    ];
 
     public function init()
     {
@@ -33,7 +36,13 @@ class DateTimePicker extends \yii\widgets\InputWidget
     {
        $id = $this->getId();
         // render input
-        echo Html::beginTag('div',['class'=>'input-group date', 'id' => $id]);
+        $this->inputGroupOptions['id']  = $id;
+        if($this->showInputIcon){
+            Html::addCssClass($this->inputGroupOptions,['input-group']);
+        }
+
+
+        echo Html::beginTag('div',$this->inputGroupOptions);
 
         $inline = ArrayHelper::getValue($this->clientOptions,'inline',false);
         $isModel = $this->hasModel();
@@ -56,7 +65,11 @@ class DateTimePicker extends \yii\widgets\InputWidget
         echo Html::endTag('div');
 
         $clientOptions = empty($this->clientOptions) ? '{}'  : Json::encode($this->clientOptions);
-        $jsCode ="$('#{$id}').datetimepicker({$clientOptions}).data('DateTimePicker').show().hide()";
+        $idClass = !$this->showInputIcon? ' .datetimepicker'  : '';
+
+
+        $jsCode ="$('#{$id}{$idClass}').datetimepicker({$clientOptions}).data('DateTimePicker').show().hide()";
+
         $this->getView()->registerJs($jsCode);
 
     }
