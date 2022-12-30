@@ -25,6 +25,7 @@ Usage
 ...
 <?=$form->field($model,'dateIn')->widget(DateTimePicker::className(),[
      'locale' => 'ru',
+     'format' => 'DD.MM.YYYY',
      'showInputIcon' => false
 ])?>
 ```
