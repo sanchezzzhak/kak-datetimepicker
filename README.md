@@ -38,3 +38,5 @@ Or
     ]
 ]);?>
 ```
+
+full docs https://getdatepicker.com/4/Options/ for clientOptions
