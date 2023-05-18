@@ -5,7 +5,7 @@ use yii\web\AssetBundle;
 
 class MomentAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/moment/min';
+    public $sourcePath = '@npm/moment/min';
     public $depends = [
         'yii\web\JqueryAsset'
     ];
